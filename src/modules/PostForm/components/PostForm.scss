@@ -1,0 +1,16 @@
+.add-post{
+  background: #f0f0f0;
+  padding: 40px 0;
+  text-align: center;
+  &__title{
+    margin: 0px 0px 40px;
+  }
+  form{
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+    .form-group{
+      margin-bottom: 40px;
+    }
+  }
+}

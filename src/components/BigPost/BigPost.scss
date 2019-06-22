@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+.big__post{
+  padding: 50px 150px;
+}
+.post{
+
+  .meta{
+    font-size: 14px;
+    font-family: 'Ubuntu', sans-serif;
+    text-transform: uppercase;
+    color: #b4ad9e;
+  }
+  &__title{
+    font-size: 30px;
+    color: #626262;
+    margin: 30px 0 40px;
+    &--dark{
+      font-size: 30px;
+      margin: 30px 0 40px;
+      color: #333333;
+    }
+  }
+  &__body{
+    margin-bottom: 50px;
+    p{
+      font-size: 14px;
+      color: #626262;
+      font-family: 'Playfair Display',serif;
+    }
+  }
+}

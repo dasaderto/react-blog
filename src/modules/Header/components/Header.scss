@@ -1,0 +1,34 @@
+
+.header {
+    padding: 70px;
+    .nav {
+        $self: &;
+        display: flex;
+        align-items: center;
+        margin-bottom: 70px;
+        &__brand {
+            font-size: 30px;
+            font-family: 'Inconsolata',monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            flex-basis: 40%;
+        }
+        &__list {
+            flex-basis: 50%;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .nav__item {
+                font-family: 'Playfair Display',serif;
+                text-transform: uppercase;
+            }
+        }
+    }
+    &__banner {
+      text-align: center;
+      img{
+        width: 100%;
+      }
+    }
+}

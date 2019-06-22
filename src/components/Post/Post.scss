@@ -1,0 +1,14 @@
+.small_post
+{
+  flex-basis: 45%;
+  margin-bottom: 80px;
+  .post{
+    &__image{
+      margin-bottom: 25px;
+      img{
+        width: 100%;
+      }
+    }
+  }
+}
+
