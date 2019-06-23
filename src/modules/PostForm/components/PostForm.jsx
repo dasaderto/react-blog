@@ -92,11 +92,6 @@ class PostForm extends Component {
                             btnType = {"submit"}
                             btnText = {"Добавить"}
                         />
-                        <Button
-                            action  = {this.handleClearForm}
-                            btnType = {"button"}
-                            btnText = {"Очистить форму"}
-                        />
                     </div>
                 </form>
             </div>

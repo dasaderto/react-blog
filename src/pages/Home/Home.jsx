@@ -16,6 +16,13 @@ class Home extends Component {
             posts: store.getState().postsReducer.posts,
         };
 
+        store.subscribe(()=>{
+            this.setState({
+                ...this.state,
+                posts: store.getState().postsReducer.posts,
+            });
+        });
+
         this.onAppendPost = this.onAppendPost.bind(this);
     }
 
@@ -36,13 +43,10 @@ class Home extends Component {
         },
     ];
 
+
     onAppendPost(newPost){
         newPost.id = this.state.posts.length+1;
         this.props.onAppendPost(newPost);
-        this.setState({
-            ...this.state,
-            posts: store.getState().postsReducer.posts,
-        });
     }
 
     render() {
