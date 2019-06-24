@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Header, PostForm} from "../../modules";
 import {BigPost, Post, SignUp, Button} from "../../components";
 import {connect} from 'react-redux';
+import axios from 'axios';
 import {store} from "../../reducers/rootReducer";
 
 import "./Home.scss";
@@ -20,19 +21,16 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3001/', {
-            headers : {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
+        axios.get("http://localhost:3001/")
+            .then(res => {
+                const posts= res.data;
+                this.setState({
+                    ...this.state,
+                    posts: JSON.parse(posts)
+                });
+                console.log(this.state);
+            });
 
-        })
-            .then(res => res.json())
-            .then(posts => this.setState({
-                ...this.state,
-                posts,
-            }));
-        console.log(this.state);
         // store.subscribe(()=>{
         //     this.setState({
         //         ...this.state,
@@ -64,7 +62,7 @@ class Home extends Component {
     }
 
     render() {
-        const showPosts =  [].map(post =>(
+        const showPosts = this.state.posts.map(post =>(
             <Post key={post.id}
                 post={post}
             />
@@ -74,7 +72,7 @@ class Home extends Component {
                   post={post}
             />
         ));
-        return (
+        return(
             <div>
                 <Header />
                 <BigPost
