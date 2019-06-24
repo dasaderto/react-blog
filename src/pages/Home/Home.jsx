@@ -13,20 +13,35 @@ class Home extends Component {
         super(props);
 
         this.state = {
-            posts: store.getState().postsReducer.posts,
+            posts: [],//store.getState().postsReducer.posts,
         };
-
-        store.subscribe(()=>{
-            this.setState({
-                ...this.state,
-                posts: store.getState().postsReducer.posts,
-            });
-        });
 
         this.onAppendPost = this.onAppendPost.bind(this);
     }
 
-     postsBottom = [
+    componentDidMount() {
+        fetch('http://localhost:3001/', {
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+
+        })
+            .then(res => res.json())
+            .then(posts => this.setState({
+                ...this.state,
+                posts,
+            }));
+        console.log(this.state);
+        // store.subscribe(()=>{
+        //     this.setState({
+        //         ...this.state,
+        //         posts: store.getState().postsReducer.posts,
+        //     });
+        // });
+    }
+
+    postsBottom = [
         {
             id:1,
             postImage: "/assets/img/5.png",
@@ -43,14 +58,13 @@ class Home extends Component {
         },
     ];
 
-
     onAppendPost(newPost){
         newPost.id = this.state.posts.length+1;
         this.props.onAppendPost(newPost);
     }
 
     render() {
-        const showPosts =  this.state.posts.map(post =>(
+        const showPosts =  [].map(post =>(
             <Post key={post.id}
                 post={post}
             />
