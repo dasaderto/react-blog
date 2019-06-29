@@ -1,52 +1,26 @@
-import {APPEND_POST} from "../actions/post-actions";
-
-const posts = [
-    {
-        id:1,
-        postImage: "/assets/img/1.png",
-        postMeta: "lifestyle",
-        postTitle: "More than just a music festival",
-        postBody: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    },
-    {
-        id:2,
-        postImage: "/assets/img/2.png",
-        postMeta: "lifestyle",
-        postTitle: "American dream",
-        postBody: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    },
-    {
-        id:3,
-        postImage: "/assets/img/3.png",
-        postMeta: "Photodiary",
-        postTitle: "Life tastes better with coffee",
-        postBody: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    },
-    {
-        id:4,
-        postImage: "/assets/img/4.png",
-        postMeta: "Photodiary",
-        postTitle: "A day exploring the Alps",
-        postBody: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    },
-
-];
+import {POST_CREATED_SUCCESS} from "../actions/post-actions";
+import {UPDATE_POSTS} from "../actions/post-actions";
 
 const initialState = {
-    posts
+    posts:[],
 };
 
 export default  function  postsReducer(state = initialState,{type,payload}) {
     switch(type){
-        case APPEND_POST:
+        case POST_CREATED_SUCCESS:
             state={
                 ...state,
                 posts:[
                     ...state.posts,
                     payload.post
                 ]
-            }
-            console.log(state);
+            };
+            return state;
+        case UPDATE_POSTS:
+            state={
+                ...state,
+                posts:payload.posts
+            };
             return state;
         default:
             return state;

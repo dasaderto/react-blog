@@ -22,6 +22,10 @@
             .nav__item {
                 font-family: 'Playfair Display',serif;
                 text-transform: uppercase;
+                a{
+                    text-decoration: none;
+                    color:inherit;
+                }
             }
         }
     }

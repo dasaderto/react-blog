@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import "./Header.scss";
+import {Link} from "react-router-dom";
 
 class Header extends Component {
     render() {
@@ -11,10 +12,15 @@ class Header extends Component {
                         <span>Minimo</span>
                     </div>
                     <ul className="nav__list">
-                        <li className="nav__item">Lifestyle</li>
+                        <li className="nav__item">
+                            <Link to='/'>Home</Link>
+                        </li>
                         <li className="nav__item">Photodiary</li>
                         <li className="nav__item">Music</li>
                         <li className="nav__item">Travel</li>
+                        <li className="nav__item">
+                            <Link to={'/login'}>Login</Link> / Register
+                        </li>
                     </ul>
                 </div>
                 <div className="header__banner">

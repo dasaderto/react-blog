@@ -5,12 +5,14 @@
   &__title{
     margin: 0px 0px 40px;
   }
-  form{
-    width: 40%;
-    text-align: center;
-    margin: 0 auto;
-    .form-group{
-      margin-bottom: 40px;
+  @at-root {
+    form{
+      width: 40%;
+      text-align: center;
+      margin: 0 auto;
+      .form-group{
+        margin-bottom: 40px;
+      }
     }
   }
 }

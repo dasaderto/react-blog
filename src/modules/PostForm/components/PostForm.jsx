@@ -10,9 +10,10 @@ class PostForm extends Component {
         this.state = {
             NewPost:{
                 id:'',
-                postTitle:'',
-                postBody:'',
-                postImage:"/assets/img/7.png"
+                title:'',
+                post_body:'',
+                img:"/assets/img/7.png",
+                metatags:['lifestyle'],
             }
         };
 
@@ -24,9 +25,10 @@ class PostForm extends Component {
         this.setState({
             NewPost:{
                 id:'',
-                postTitle:'',
-                postBody:'',
-                postImage:"/assets/img/7.png"
+                title:'',
+                post_body:'',
+                img:"/assets/img/7.png",
+                metatags:['lifestyle'],
             }
         })
     }
@@ -43,7 +45,7 @@ class PostForm extends Component {
         this.setState( prevState =>({
             NewPost: {
                 ...prevState.NewPost,
-                postTitle: title,
+                title,
             }
         }));
     }
@@ -54,7 +56,7 @@ class PostForm extends Component {
         this.setState( prevState =>({
             NewPost: {
                 ...prevState.NewPost,
-                postBody: body
+                post_body: body
             }
         }));
     }
@@ -72,7 +74,7 @@ class PostForm extends Component {
                             name={"post_title"}
                             type={'text'}
                             placeholder={"Post title ..."}
-                            value={this.state.NewPost.postTitle}
+                            value={this.state.NewPost.title}
                             handleChange={this.handlePostTitle}
                         />
                     </div>
@@ -82,7 +84,7 @@ class PostForm extends Component {
                             name={"post_body"}
                             type={'text'}
                             placeholder={"Post body ..."}
-                            value={this.state.NewPost.postBody}
+                            value={this.state.NewPost.post_body}
                             handleChange={this.handlePostBody}
                         />
                     </div>

@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import {Header, PostForm} from "../../modules";
 import {BigPost, Post, SignUp, Button} from "../../components";
 import {connect} from 'react-redux';
-import axios from 'axios';
 import {store} from "../../reducers/rootReducer";
 
 import "./Home.scss";
-import {appendPost} from "../../actions/post-actions";
+import {appendPost, loadPosts} from "../../actions/post-actions";
 
 class Home extends Component {
 
@@ -14,51 +13,48 @@ class Home extends Component {
         super(props);
 
         this.state = {
-            posts: [],//store.getState().postsReducer.posts,
+            posts: [],
         };
 
         this.onAppendPost = this.onAppendPost.bind(this);
     }
 
     componentDidMount() {
-        axios.get("http://localhost:3001/")
-            .then(res => {
-                const posts= res.data;
-                this.setState({
-                    ...this.state,
-                    posts: JSON.parse(posts)
-                });
-                console.log(this.state);
-            });
-
-        // store.subscribe(()=>{
-        //     this.setState({
-        //         ...this.state,
-        //         posts: store.getState().postsReducer.posts,
-        //     });
-        // });
+        this.props.loadPosts();
+         store.subscribe(()=>{
+             this.setState({
+                 ...this.state,
+                 posts: store.getState().postsReducer.posts,
+             });
+         });
     }
 
     postsBottom = [
         {
             id:1,
-            postImage: "/assets/img/5.png",
-            postMeta: "lifestyle",
-            postTitle: "Top 10 song for running",
-            postBody: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+            img: "/assets/img/5.png",
+            metatags: ["lifestyle"],
+            title: "Top 10 song for running",
+            post_body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
         },
         {
             id:2,
-            postImage: "/assets/img/6.png",
-            postMeta: "lifestyle",
-            postTitle: "Cold winter days",
-            postBody: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+            img: "/assets/img/6.png",
+            metatags: ["lifestyle"],
+            title: "Cold winter days",
+            post_body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
         },
     ];
 
     onAppendPost(newPost){
-        newPost.id = this.state.posts.length+1;
         this.props.onAppendPost(newPost);
+        this.setState({
+            ...this.state,
+            posts:[
+                ...this.state.posts,
+                newPost
+            ]
+        })
     }
 
     render() {
@@ -67,7 +63,7 @@ class Home extends Component {
                 post={post}
             />
         ));
-        const showBottomPosts = this.postsBottom.map(post =>(
+        const showBottomPosts = this.postsBottom.map((post) =>(
             <Post key={post.id}
                   post={post}
             />
@@ -103,12 +99,11 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    post: state.NewPost
-});
+const mapStateToProps = state => {return state};
 
 const mapActionsToProps = {
-    onAppendPost : appendPost
+    onAppendPost : appendPost,
+    loadPosts:loadPosts
 };
 
 export default connect(mapStateToProps,mapActionsToProps)(Home);

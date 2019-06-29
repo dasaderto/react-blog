@@ -6,10 +6,16 @@
 .post{
 
   .meta{
+    display: flex;
+    flex-wrap: wrap;
     font-size: 14px;
     font-family: 'Ubuntu', sans-serif;
     text-transform: uppercase;
     color: #b4ad9e;
+    span{
+      margin-bottom: 1rem;
+      margin-right: 1rem;
+    }
   }
   &__title{
     font-size: 30px;
