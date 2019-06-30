@@ -6,7 +6,6 @@ import './styles/index.scss';
 import App from './App';
 import {store} from "./reducers/rootReducer";
 
-
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>

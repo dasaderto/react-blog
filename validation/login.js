@@ -3,12 +3,8 @@ const isEmpty = require('./is-empty');
 
 module.exports = function validateLoginInput(data) {
     let errors = {};
-    data.email = !isEmpty(data.login) ? data.login : '';
+    data.login = !isEmpty(data.login) ? data.login : '';
     data.password = !isEmpty(data.password) ? data.password : '';
-
-    if(!Validator.isLogin(data.login)) {
-        errors.email = 'Login is invalid';
-    }
 
     if(Validator.isEmpty(data.login)) {
         errors.login = 'Login is required';
@@ -26,4 +22,4 @@ module.exports = function validateLoginInput(data) {
         errors,
         isValid: isEmpty(errors)
     }
-}
+};

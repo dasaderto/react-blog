@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const validateRegisterInput = require('../validation/register');
@@ -12,7 +12,7 @@ exports.registration = async function (req, res) {
         return res.status(400).json(errors);
     }
 
-    const user = await User::findOne({
+    const user = await User.findOne({
         login: req.body.login
     });
 
@@ -52,16 +52,16 @@ exports.login = async function (req, res) {
     if(!isValid) {
         return res.status(400).json(errors);
     }
-
+console.log(req.body);
     const login = req.body.login;
     const password = req.body.password;
 
-    const user = await User::findOne({
+    const user = await User.findOne({
         login
     });
 
     if(!user) {
-        errors.email = 'User not found'
+        errors.login = 'User not found';
         return res.status(404).json(errors);
     }
 
@@ -86,7 +86,7 @@ exports.login = async function (req, res) {
                 });
             }
             else {
-                errors.password = 'Incorrect Password';
+                errors.password = 'Incorrect data';
                 return res.status(400).json(errors);
             }
         });

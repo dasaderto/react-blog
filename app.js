@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const config = require('./config');
 const express = require("express");
 const mainRouter = require("./routes/mainRouter.js");
+const userRouter = require("./routes/userRouter.js");
 const passport = require('passport');
 
 mongoose.Promise = global.Promise;
@@ -27,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/api", mainRouter);
-app.use("/api/users", mainRouter);
+app.use("/api/users", userRouter);
 
 
 app.use(function (req, res, next) {

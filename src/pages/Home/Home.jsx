@@ -9,24 +9,28 @@ import {appendPost, loadPosts} from "../../actions/post-actions";
 
 class Home extends Component {
 
+    unsubscribe;
+
     constructor(props){
         super(props);
 
         this.state = {
             posts: [],
         };
-
-        this.onAppendPost = this.onAppendPost.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.loadPosts();
-         store.subscribe(()=>{
+        this.unsubscribe = store.subscribe(()=>{
              this.setState({
                  ...this.state,
                  posts: store.getState().postsReducer.posts,
              });
          });
+    }
+    
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     postsBottom = [
@@ -45,17 +49,6 @@ class Home extends Component {
             post_body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
         },
     ];
-
-    onAppendPost(newPost){
-        this.props.onAppendPost(newPost);
-        this.setState({
-            ...this.state,
-            posts:[
-                ...this.state.posts,
-                newPost
-            ]
-        })
-    }
 
     render() {
         const showPosts = this.state.posts.map(post =>(
@@ -93,7 +86,7 @@ class Home extends Component {
                     btnType={"button"}
                 />
 
-                <PostForm AppendPost={this.onAppendPost}/>
+                <PostForm AppendPost={this.props.onAppendPost}/>
             </div>
         );
     }

@@ -4,33 +4,6 @@ import {Button, Input} from "../../../components";
 import './LoginForm.scss';
 
 class LoginForm extends Component {
-    constructor(props){
-        super(props);
-
-        this.state = {
-            login:'',
-            password:'',
-            errors:{}
-        };
-
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleInputChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const user = {
-            login: this.state.login,
-            password: this.state.password,
-        }
-        console.log(user);
-    }
 
     render() {
         return (
@@ -45,8 +18,8 @@ class LoginForm extends Component {
                             name={"login"}
                             type={'text'}
                             placeholder={"Login ..."}
-                            value={this.state.login}
-                            handleChange={this.handleInputChange}
+                            value={this.props.login}
+                            handleChange={this.props.onChange}
                         />
                     </div>
                     <div className="form-group">
@@ -55,13 +28,13 @@ class LoginForm extends Component {
                             name={"password"}
                             type={'password'}
                             placeholder={"Password ..."}
-                            value={this.state.password }
-                            handleChange={this.handleInputChange}
+                            value={this.props.password}
+                            handleChange={this.props.onChange}
                         />
                     </div>
                     <div className="form-group">
                         <Button
-                            action ={this.handleSubmit}
+                            action ={this.props.onSubmit}
                             btnType = {"submit"}
                             btnText = {"Sign In"}
                         />

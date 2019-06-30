@@ -1,10 +1,10 @@
-import userController from "../controllers/userController";
+const userController = require("../controllers/userController");
 const express = require("express");
 const passport = require('passport');
-const mainRouter = express.Router();
+const userRouter = express.Router();
 
-mainRouter.post("/register", userController.registration);
-mainRouter.post("/login", userController.login);
-mainRouter.get("/im", passport.authenticate('jwt', { session: false }), userController.auth);
+userRouter.post("/register", userController.registration);
+userRouter.post("/login", userController.login);
+userRouter.get("/im", passport.authenticate('jwt', { session: false }), userController.auth);
 
-module.exports = mainRouter;
+module.exports = userRouter;
