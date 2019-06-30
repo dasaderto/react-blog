@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const POST_CREATED_SUCCESS = 'posts:postAppended';
+export const POST_DELETED_SUCCESS = 'posts:postDeleted';
 export const UPDATE_POSTS = 'posts:updatePosts';
 
 export function appendPost(newPost) {
@@ -34,8 +35,29 @@ export function loadPosts(){
             });
     }
 }
-    
 
+export function deletePost(post){
+    return (dispatch)=>{
+        return axios.delete("http://localhost:3001/api/posts/delete/",{
+                data: {postId: post.id}
+            })
+            .then(function (res) {
+                dispatch(postDeletedSuccess(res.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+}
+
+export function postDeletedSuccess(post) {
+    return {
+        type: POST_DELETED_SUCCESS,
+        payload: {
+            post
+        }
+    }
+}
 
 export function updatePosts(posts) {
     return {

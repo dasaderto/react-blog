@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {store} from "../../reducers/rootReducer";
 
 import "./Home.scss";
-import {appendPost, loadPosts} from "../../actions/post-actions";
+import {appendPost, loadPosts, deletePost} from "../../actions/post-actions";
 
 class Home extends Component {
 
@@ -17,6 +17,8 @@ class Home extends Component {
         this.state = {
             posts: [],
         };
+
+        this.handleDeletePost = this.handleDeletePost.bind(this);
     }
 
     componentWillMount() {
@@ -31,6 +33,11 @@ class Home extends Component {
     
     componentWillUnmount() {
         this.unsubscribe();
+    }
+
+    handleDeletePost(post,e){
+        e.preventDefault();
+        this.props.deletePost(post);
     }
 
     postsBottom = [
@@ -54,11 +61,13 @@ class Home extends Component {
         const showPosts = this.state.posts.map(post =>(
             <Post key={post.id}
                 post={post}
+                onDelete = {this.handleDeletePost}
             />
         ));
         const showBottomPosts = this.postsBottom.map((post) =>(
             <Post key={post.id}
                   post={post}
+                  onDelete = {this.handleDeletePost}
             />
         ));
         return(
@@ -96,7 +105,8 @@ const mapStateToProps = state => {return state};
 
 const mapActionsToProps = {
     onAppendPost : appendPost,
-    loadPosts:loadPosts
+    loadPosts,
+    deletePost
 };
 
 export default connect(mapStateToProps,mapActionsToProps)(Home);

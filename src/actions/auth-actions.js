@@ -16,7 +16,7 @@ export const registerUser = (user, history) => dispatch => {
             });
 };
 
-export const loginUser = (user) => dispatch => {
+export const loginUser = (user,history) => dispatch => {
     console.log(user);
     axios.post('http://localhost:3001/api/users/login', user)
             .then(res => {

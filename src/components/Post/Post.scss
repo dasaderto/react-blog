@@ -9,6 +9,13 @@
         width: 100%;
       }
     }
+    &__delete{
+      text-align: right;
+      a{
+        text-decoration: none;
+        color: #626262;
+      }
+    }
   }
 }
 

@@ -23,3 +23,18 @@ exports.postCreate = async function (request, response) {
         response.json(JSON.stringify(post));
     });
 };
+
+exports.postDelete = function (request, response) {
+
+    let deletePost = request.body.postId;
+
+    Posts.findOneAndDelete({_id: deletePost}, function(err, result){
+
+        if(err){
+            return response.status(400).json(err);
+        }else{
+            response.json(result);
+        }
+    });
+
+};
