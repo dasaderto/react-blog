@@ -3,15 +3,15 @@ const isEmpty = require('./is-empty');
 
 module.exports = function validateRegisterInput(data) {
     let errors = {};
-    data.login = !isEmpty(data.name) ? data.name : '';
+    data.login = !isEmpty(data.login) ? data.login : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password_confirm = !isEmpty(data.password_confirm) ? data.password_confirm : '';
 
-    if(!Validator.isLength(data.name, { min: 2, max: 30 })) {
+    if(!Validator.isLength(data.login, { min: 2, max: 30 })) {
         errors.login = 'Login must be between 2 to 30 chars';
     }
 
-    if(Validator.isEmpty(data.name)) {
+    if(Validator.isEmpty(data.login)) {
         errors.login = 'Login field is required';
     }
 
@@ -32,7 +32,7 @@ module.exports = function validateRegisterInput(data) {
     }
 
     if(Validator.isEmpty(data.password_confirm)) {
-        errors.password_confirm = 'Password is required';
+        errors.password_confirm = 'Password confirmation is required';
     }
 
     return {

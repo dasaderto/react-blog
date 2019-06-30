@@ -5,7 +5,7 @@ const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 exports.registration = async function (req, res) {
-
+console.log(req.body);
     const { errors, isValid } = validateRegisterInput(req.body);
 
     if(!isValid) {

@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
-
-import "./Login.scss";
-import {Header,LoginForm} from "../../modules/";
 import {connect} from "react-redux";
-import {loginUser} from "../../actions/auth-actions";
+import {registerUser} from "../../actions/auth-actions";
+
+import "./Registration.scss";
+import {Header, RegistrationForm} from "../../modules/";
+import {withRouter} from "react-router-dom";
 import {store} from "../../reducers/rootReducer";
 
-class Login extends Component {
+class Registration extends Component {
 
     unsubscribe;
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
-            login:'',
-            password:'',
-            errors:{}
+            login: '',
+            password: '',
+            password_confirm: '',
+            errors: {}
         };
-
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,6 +33,7 @@ class Login extends Component {
                 ...this.state,
                 errors: store.getState().errors,
             });
+            console.log(this.state.errors);
         });
     }
 
@@ -51,18 +53,20 @@ class Login extends Component {
         const user = {
             login: this.state.login,
             password: this.state.password,
+            password_confirm: this.state.password_confirm
         };
-        this.props.loginUser(user);
+        this.props.registerUser(user, this.props.history);
     }
 
     render() {
         return (
-            <div className={'login__page'}>
+            <div className={'register__page'}>
                 <Header />
 
-                <LoginForm
+                <RegistrationForm
                     login={this.state.login}
                     password={this.state.password}
+                    passwordConfirm={this.state.password_confirm}
                     onChange={this.handleInputChange}
                     onSubmit={this.handleSubmit} />
             </div>
@@ -70,13 +74,13 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    errors: state.errors,
+const mapStateToProps = state => ({
     auth: state.auth,
+    errors: state.errors
 });
 
 const mapActionsToProps = {
-    loginUser
+    registerUser
 };
 
-export default connect(mapStateToProps,mapActionsToProps)(Login);
+export default connect(mapStateToProps, mapActionsToProps)(withRouter(Registration));

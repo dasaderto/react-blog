@@ -1,4 +1,4 @@
-import isEmpty from '../is-empty';
+import isEmpty from '../auth/is-empty';
 import { SET_CURRENT_USER } from '../actions/auth-actions';
 
 const initialState = {

@@ -21,7 +21,7 @@ class Header extends Component {
         );
         const guestLinks = (
             <li className="nav__item">
-                <Link to={'/login'}>Login</Link> / Register
+                <Link to={'/login'}>Login</Link> / <Link to={'/register'}>Register</Link>
             </li>
         );
         return (

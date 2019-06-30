@@ -1,5 +1,5 @@
 import axios from 'axios';
-import setAuthToken from '../setAuthToken';
+import setAuthToken from '../auth/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
 export const GET_ERRORS = 'GET_ERRORS';

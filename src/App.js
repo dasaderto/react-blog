@@ -1,8 +1,8 @@
 import React from 'react';
-import {Home, Login} from './pages';
+import {Home, Login, Registration} from './pages';
 import {Route, Switch} from "react-router-dom";
 import {store} from "./reducers/rootReducer";
-import setAuthToken from "./setAuthToken";
+import setAuthToken from "./auth/setAuthToken";
 import {logoutUser, setCurrentUser} from "./actions/auth-actions";
 import jwt_decode from 'jwt-decode';
 
@@ -24,6 +24,7 @@ function App() {
         <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/login' component={Login}/>
+            <Route exact path='/register' component={Registration}/>
         </Switch>
     </div>
   );
