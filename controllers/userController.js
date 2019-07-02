@@ -5,7 +5,6 @@ const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 exports.registration = async function (req, res) {
-console.log(req.body);
     const { errors, isValid } = validateRegisterInput(req.body);
 
     if(!isValid) {
@@ -18,7 +17,7 @@ console.log(req.body);
 
     if(user) {
         return res.status(400).json({
-            login: 'Login already exists'
+            uniqueLogin: 'Пользователь с таким именем уже существует'
         });
     }else{
         const newUser = new User({
@@ -52,7 +51,7 @@ exports.login = async function (req, res) {
     if(!isValid) {
         return res.status(400).json(errors);
     }
-console.log(req.body);
+
     const login = req.body.login;
     const password = req.body.password;
 
@@ -61,7 +60,7 @@ console.log(req.body);
     });
 
     if(!user) {
-        errors.login = 'User not found';
+        errors.login = 'Пользователь не найден';
         return res.status(404).json(errors);
     }
 
@@ -86,7 +85,7 @@ console.log(req.body);
                 });
             }
             else {
-                errors.password = 'Incorrect data';
+                errors.password = 'Некорректные данные';
                 return res.status(400).json(errors);
             }
         });

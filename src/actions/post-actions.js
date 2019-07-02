@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {GET_ERRORS} from "./auth-actions";
 
 export const POST_CREATED_SUCCESS = 'posts:postAppended';
 export const POST_DELETED_SUCCESS = 'posts:postDeleted';
@@ -10,10 +11,17 @@ export function appendPost(newPost) {
             newPost
         })
             .then(function (res) {
-                dispatch(postCreatedSuccess(JSON.parse(res.data)));
+                dispatch(postCreatedSuccess(res.data));
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(function (err) {
+                let errors = {};
+                if(err.response.status === 401) {
+                    errors.postCreate = "Вы не можете создавать посты, авторизуйтесь";
+                }
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: errors
+                });
             });
     }
 }
@@ -22,7 +30,7 @@ export function postCreatedSuccess(post) {
     return {
         type: POST_CREATED_SUCCESS,
         payload: {
-            post
+            post: JSON.parse(post)
         }
     }
 }

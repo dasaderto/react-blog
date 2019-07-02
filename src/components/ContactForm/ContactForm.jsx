@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import * as MD from 'react-icons/lib/md';
 
-import "./SignUp.scss"
+import "./ContactForm.scss"
 import Input from "../Input/Input";
 
-class SignUp extends Component {
+class ContactForm extends Component {
     render() {
         return (
-            <div className={"sign-up"}>
-                <div className="sign-up__content">
-                    <div className="sign-up__title post__title--dark">
+            <div className={"contact-panel"}>
+                <div className="contact-panel__content">
+                    <div className="contact-panel__title post__title--dark">
                         <span>Sign up for our newsletter!</span>
                     </div>
-                    <div className="sign-up__form">
+                    <div className="contact-panel__form">
                         <form action="">
                             <Input
                                 labelText=""
@@ -29,4 +29,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp;
+export default ContactForm;

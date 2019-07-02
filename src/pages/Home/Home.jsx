@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Header, PostForm} from "../../modules";
-import {BigPost, Post, SignUp, Button} from "../../components";
+import {BigPost, PostBox, Post, ContactForm, Button} from "../../components";
 import {connect} from 'react-redux';
 import {store} from "../../reducers/rootReducer";
 
@@ -16,6 +16,7 @@ class Home extends Component {
 
         this.state = {
             posts: [],
+            errors:{}
         };
 
         this.handleDeletePost = this.handleDeletePost.bind(this);
@@ -26,6 +27,7 @@ class Home extends Component {
         this.unsubscribe = store.subscribe(()=>{
              this.setState({
                  ...this.state,
+                 errors: store.getState().errors,
                  posts: store.getState().postsReducer.posts,
              });
          });
@@ -58,7 +60,7 @@ class Home extends Component {
     ];
 
     render() {
-        const showPosts = this.state.posts.map(post =>(
+        const showPosts = this.state.posts.map((post) =>(
             <Post key={post.id}
                 post={post}
                 onDelete = {this.handleDeletePost}
@@ -80,22 +82,25 @@ class Home extends Component {
                     commentMeta = "Leave a comment"
                 />
 
-                <div className="posts__box">
+                <PostBox>
                     {showPosts}
-                </div>
+                </PostBox>
 
-                <SignUp />
+                <ContactForm />
 
-                <div className="posts__box">
+                <PostBox>
                     {showBottomPosts}
-                </div>
+                </PostBox>
 
                 <Button
                     btnText={"Load more"}
                     btnType={"button"}
                 />
 
-                <PostForm AppendPost={this.props.onAppendPost}/>
+                <PostForm
+                    AppendPost={this.props.onAppendPost}
+                    errors = {this.state.errors}
+                />
             </div>
         );
     }

@@ -33,7 +33,6 @@ class Registration extends Component {
                 ...this.state,
                 errors: store.getState().errors,
             });
-            console.log(this.state.errors);
         });
     }
 
@@ -68,7 +67,9 @@ class Registration extends Component {
                     password={this.state.password}
                     passwordConfirm={this.state.password_confirm}
                     onChange={this.handleInputChange}
-                    onSubmit={this.handleSubmit} />
+                    onSubmit={this.handleSubmit}
+                    errors = {this.state.errors}
+                />
             </div>
         );
     }

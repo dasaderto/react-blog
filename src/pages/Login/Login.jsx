@@ -46,13 +46,17 @@ class Login extends Component {
         })
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault();
         const user = {
             login: this.state.login,
             password: this.state.password,
         };
-        this.props.loginUser(user);
+        await this.props.loginUser(user);
+        this.setState({
+            ...this.state,
+            errors: {}
+        })
     }
 
     render() {
@@ -64,7 +68,9 @@ class Login extends Component {
                     login={this.state.login}
                     password={this.state.password}
                     onChange={this.handleInputChange}
-                    onSubmit={this.handleSubmit} />
+                    onSubmit={this.handleSubmit}
+                    errors ={this.state.errors}
+                />
             </div>
         );
     }

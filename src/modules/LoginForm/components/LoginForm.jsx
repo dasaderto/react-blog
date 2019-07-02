@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Input} from "../../../components";
+import {Button, Error, Input} from "../../../components";
 
 import './LoginForm.scss';
 
@@ -12,6 +12,7 @@ class LoginForm extends Component {
                     <span>Sign In</span>
                 </div>
                 <form>
+                    <Error errors={this.props.errors} />
                     <div className="form-group">
                         <Input
                             labelText={"Введите логин"}

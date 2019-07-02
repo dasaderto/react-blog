@@ -7,7 +7,10 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 export const registerUser = (user, history) => dispatch => {
     axios.post('http://localhost:3001/api/users/register', user)
-            .then(res => history.push('/login'))
+            .then(res => {
+                history.push('/login');
+                dispatch(clearErrors());
+            })
             .catch(err => {
                 dispatch({
                     type: GET_ERRORS,
@@ -16,13 +19,13 @@ export const registerUser = (user, history) => dispatch => {
             });
 };
 
-export const loginUser = (user,history) => dispatch => {
-    console.log(user);
+export const loginUser = (user) => dispatch => {
     axios.post('http://localhost:3001/api/users/login', user)
             .then(res => {
                 const { token } = res.data;
                 localStorage.setItem('jwtToken', token);
                 setAuthToken(token);
+                dispatch(clearErrors());
                 const decoded = jwt_decode(token);
                 dispatch(setCurrentUser(decoded));
             })
@@ -38,6 +41,13 @@ export const setCurrentUser = decoded => {
     return {
         type: SET_CURRENT_USER,
         payload: decoded
+    }
+};
+
+export const clearErrors= () => {
+    return {
+        type: GET_ERRORS,
+        payload: {}
     }
 };
 

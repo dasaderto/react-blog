@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 
 import "./PostForm.scss";
-import {Input, Button} from "../../../components";
+import {Input, Button,Error} from "../../../components";
+
 
 class PostForm extends Component {
     constructor(props){
@@ -14,7 +15,8 @@ class PostForm extends Component {
                 post_body:'',
                 img:"/assets/img/7.png",
                 metatags:['lifestyle'],
-            }
+            },
+            errors: {},
         };
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -23,6 +25,7 @@ class PostForm extends Component {
     }
     handleClearForm(){
         this.setState({
+            ...this.state,
             NewPost:{
                 id:'',
                 title:'',
@@ -30,19 +33,26 @@ class PostForm extends Component {
                 img:"/assets/img/7.png",
                 metatags:['lifestyle'],
             }
-        })
+        });
     }
-    handleFormSubmit(e){
+    async handleFormSubmit(e){
         e.preventDefault();
         let postData = this.state.NewPost;
-        this.props.AppendPost(postData);
-        this.handleClearForm();
+        await this.props.AppendPost(postData);
+        this.setState({
+           ...this.state,
+           errors: this.props.errors
+        });
+        if (Object.keys(this.state.errors).length === 0) {
+            this.handleClearForm();
+        }
     }
 
     handlePostTitle(e){
         let title = e.target.value;
 
         this.setState( prevState =>({
+            ...this.state,
             NewPost: {
                 ...prevState.NewPost,
                 title,
@@ -54,6 +64,7 @@ class PostForm extends Component {
         let body = e.target.value;
 
         this.setState( prevState =>({
+            ...this.state,
             NewPost: {
                 ...prevState.NewPost,
                 post_body: body
@@ -67,7 +78,8 @@ class PostForm extends Component {
                 <div className="add-post__title post__title--dark">
                     <span>Post addition</span>
                 </div>
-                <form action="" onSubmit={this.handleFormSubmit}>
+                <form action="" className={"add-post__form"} onSubmit={this.handleFormSubmit}>
+                    <Error errors={this.state.errors} />
                     <div className="form-group">
                         <Input
                             labelText={"Введите название поста"}
